@@ -1,76 +1,82 @@
-# Android Manifest Analyzer 🔍
+# Android Manifest Analyzer
 
-![Python Version](https://img.shields.io/badge/python-3.6+-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
+A CLI tool that analyzes AndroidManifest.xml from any **decompiled APK folder**.
+It extracts components, exported risks, intent filters, deep links, permissions, and generates a structured security report.
+It also auto-saves the output as `<foldername>.txt`.
 
-A powerful tool for analyzing Android manifest files, identifying security vulnerabilities, and extracting deep links with colorful console output.
+## Features
 
-## Features ✨
+* Automatically locates AndroidManifest.xml inside a decompiled APK
+* Extracts activities, services, receivers, providers
+* Flags exported components and insecure configurations
+* Summarizes intent filters and deep link URIs
+* Identifies dangerous and signature-level permissions
+* Resolves `@string/...` references from `strings.xml`
+* Generates both text and JSON reports
+* Saves output automatically
 
-- **Comprehensive Analysis** of AndroidManifest.xml
-- **Security Vulnerability Detection** (exported components, dangerous permissions)
-- **Deep Link Extraction** with URI schemes
-- **Permission Analysis** with risk categorization
-- **Colorful Console Output** for better readability
-- **JSON Export** option for programmatic use
-- **String Resource Resolution** (@string/ references)
-
-## Installation ⚙️
+## Installation
 
 ```bash
-git clone https://github.com/yourusername/android-manifest-analyzer.git
+git clone https://github.com/yourusername/android-manifest-analyzer
 cd android-manifest-analyzer
+pip install -r requirements.txt
 ```
 
-## Usage 🚀
+## Usage
 
-### Basic Analysis
+### Analyze a decompiled APK folder
+
 ```bash
-python3 analyze_manifest.py -m AndroidManifest.xml
+python3 analyze.py <decompiled_folder>
 ```
 
-### With String Resources
+### Generate JSON output
+
 ```bash
-python3 analyze_manifest.py -m AndroidManifest.xml -s res/values/strings.xml
+python3 analyze.py <decompiled_folder> -f json
 ```
 
-### JSON Output
+### Output Auto-Save
+
+The tool automatically writes:
+
+```
+<foldername>.txt
+```
+
+## Output Sections
+
+The generated text report includes:
+
+1. Component summary
+2. Intent filters and deep links
+3. Permissions
+4. Security findings
+5. Raw data summary
+
+## Command Line Options
+
+| Option                | Description            | Default  |
+| --------------------- | ---------------------- | -------- |
+| `<decompiled_folder>` | Path to decompiled APK | Required |
+| `-f`, `--format`      | `text` or `json`       | `text`   |
+
+## Requirements
+
+* Python 3.6+
+* beautifulsoup4
+
+Install with:
+
 ```bash
-python3 analyze_manifest.py -m AndroidManifest.xml -f json
+pip install beautifulsoup4
 ```
 
-## Command Line Options 🔧
+## License
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `-m`, `--manifest` | Path to AndroidManifest.xml | **Required** |
-| `-s`, `--strings` | Path to strings.xml | `res/values/strings.xml` |
-| `-f`, `--format` | Output format (`text` or `json`) | `text` |
+MIT License.
 
-## Color Coding 🎨
+## Contributing
 
-| Color | Meaning |
-|-------|---------|
-| 🔴 Red | High risk vulnerabilities |
-| 🟡 Yellow | Warnings/medium risk |
-| 🟢 Green | Safe components |
-| 🔵 Blue | Informational items |
-| 🟠 Orange | Activities |
-| 💙 Light Blue | Services |
-| 💚 Light Green | Receivers |
-| 💖 Pink | Content Providers |
-
-## Requirements 📦
-
-- Python 3.6+
-- BeautifulSoup4 (`pip install beautifulsoup4`)
-
-## License 📄
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contributing 🤝
-
-Pull requests are welcome! Please open an issue first to discuss what you'd like to change.
-
----
+Open an issue or submit a PR.
